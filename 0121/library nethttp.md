@@ -1,0 +1,18 @@
+# library nethttp
+***
+# 経緯
+***
+カーリルAPIを実装するコードを書きたい
+
+# コード
+***
+
+
+require 'net/http'
+require 'uri'
+
+url = URI.parse('http://www.example.com/index.html')
+res = Net::HTTP.start(url.host, url.port) {|http|
+  http.get('/index.html')
+}
+puts res.body
