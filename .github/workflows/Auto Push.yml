@@ -2,7 +2,7 @@ name: Auto Push
 
 on:
   schedule:
-    - cron: '33 12 * * *' # 毎日12時20分（UTC）に実行
+    - cron: '30 13 * * *'
 
 jobs:
   auto-push:
@@ -13,12 +13,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
 
       - name: Update file
         run: |
