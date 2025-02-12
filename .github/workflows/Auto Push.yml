@@ -2,11 +2,15 @@ name: Auto Push
 
 on:
   schedule:
-    - cron: '40 13 * * *' # 毎日13時30分（UTC）に実行
+    - cron: '30 13 * * *' # 毎日13時30分（UTC）に実行
 
 jobs:
   auto-push:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # GitHub Actionsボットに書き込み権限を付与
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -14,14 +18,19 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Update file
         run: |
           echo "Updated at $(date)" > update_log.txt
-
-      - name: Commit and push
-        run: |
-          git config --local user.email "${{ secrets.USER_EMAIL }}"
-          git config --local user.name "${{ secrets.USER_NAME }}"
           git add update_log.txt
           git commit -m "Automated update at $(date)" || echo "No changes to commit"
-          git push origin HEAD
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin main
