@@ -55,6 +55,9 @@ sudo systemctl status postgresql
 
 
 
+
+
+
 * Dockerを使用している場合は、コンテナが実行中か確認します。
 ```
 docker ps
