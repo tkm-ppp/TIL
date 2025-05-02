@@ -50,7 +50,6 @@ sudo systemctl status postgresql
 5. ログの確認:
 * journalctlコマンドと組み合わせて、サービスのログを確認することができます。
 * 例: journalctl -u <サービス名>
-* 
 </details>
 
 
